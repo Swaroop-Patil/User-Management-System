@@ -1,0 +1,34 @@
+<h1> Edit Profile</h1>
+
+<%
+  if(typeof message !== 'undefined'){
+    %>
+      <h4><%= message %></h4>
+      <%
+  }
+
+%>
+
+  <br>
+
+  <!--<img src="userImages/<%= user.image %>"width="100px" height="100px" alt="<%=user.image %>"> -->
+
+<form action="" method="POST"  entype="multipart/form-data">
+
+    <!-- input type="text name="image -->
+
+    <input type="hidden" name="user_id" value="<%= user._id %>"  >
+    <br>
+   
+    <input type="text" name="name" value="<%= user.name %>"  placeholder="Enter Name" required>
+    <br>
+    <input type="email" name="email" value="<%= user.email %>"  placeholder="Enter Email" required>
+    <br>
+    <input type="text" name="phNo" value="<%= user.phoneNo %>"  placeholder="Enter Mobile" required>
+    <br>
+    
+    <input type="submit" value="Update Profile">
+    
+</form>
+
+

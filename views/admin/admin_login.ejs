@@ -1,0 +1,23 @@
+<h1> Admin Login</h1>
+
+<%
+  if(typeof message !== 'undefined'){
+    %>
+      <h4><%= message %></h4>
+      <%
+  }
+
+%>
+
+  <br>
+
+<form action="/admin" method="POST">
+    <input type="email" name="email" required placeholder="Enter Mail">
+    <br>
+    <input type="password" name="password" required  placeholder="Enter Password">
+    <br>
+    <input type="submit" value="Login">
+    
+</form>
+
+<a href="/forget">Forgot Password</a>

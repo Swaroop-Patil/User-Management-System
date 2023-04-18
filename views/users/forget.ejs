@@ -1,0 +1,21 @@
+<h1>Forget</h1>
+
+<%
+  if(typeof message !== 'undefined'){
+    %>
+     <h4><%= message %></h4>
+      <%
+  }
+
+%>
+<br>
+
+   <form action="/forget" method="post">
+    <input type="email" name="email" required placeholder="Enter Mail">
+    <br>
+   
+    <input type="submit" value="Send Rest Link">
+    
+</form>
+
+
