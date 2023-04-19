@@ -209,6 +209,16 @@ const securedPassword= async(password) =>{
                 }
             }
             
+    const adminDashboard = async(req,res) => {
+
+        try{
+             res.render('admin_dashboard.ejs');
+        
+        }catch (error){
+            console.log(error.message);
+        }
+    }
+
 
     module.exports={
         loadLogin,
@@ -218,5 +228,6 @@ const securedPassword= async(password) =>{
         forgetLoad,
         forgetVerify,
         forgetPasswordLoad,
-        resetPassword
+        resetPassword,
+        adminDashboard
     }

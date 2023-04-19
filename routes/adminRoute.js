@@ -34,6 +34,8 @@ admin_route.post('/admin_forget',auth.isLogout,adminController.forgetVerify);
 admin_route.get('/admin_forget-password',auth.isLogout,adminController.forgetPasswordLoad);
 admin_route.post('/admin_forget-password',adminController.resetPassword);
 
+admin_route.get('/admin_dashboard',auth.isLogin,adminController.adminDashboard);
+
 
 
 
