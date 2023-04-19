@@ -1,3 +1,41 @@
 <h1>DASHBOARD</h1>
 
+<table width="50%">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Course</th>
+        <th>Mobile</th>
+        <th>Verified</th>
+    </tr>
+
+    <%
+        if(users.length > 0){
+            for(let i=0;i<users.length;i++){
+              %>
+              <tr>
+                <td><%= users[i].name %></td>
+                <td><%= users[i].email %></td>
+                <td><%= users[i].course %></td>
+                <td><%= users[i].phoneNo %></td>
+                <!-- <td><img src="userImages/<%= users.image %>" width="100px" height="100px" %>" alt="<%= users.image %>"></td>-->
+                
+              </tr>
+              <%
+            }
+        }    
+        else{
+         %>
+         <tr>
+            <td colspan="5">Users Not Found</td>
+         </tr>
+         <%
+        }
+    %>  
+        
+
+</table>
+
+
+
 <a href="/admin_house">Go to Home</a>

@@ -212,7 +212,8 @@ const securedPassword= async(password) =>{
     const adminDashboard = async(req,res) => {
 
         try{
-             res.render('admin_dashboard.ejs');
+              const usersData= await User.find({is_admin: 0});
+             res.render('admin_dashboard.ejs',{users:usersData});
         
         }catch (error){
             console.log(error.message);
