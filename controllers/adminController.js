@@ -18,7 +18,48 @@ const securedPassword= async(password) =>{
  }
 
 
- const loadLogin= async(req,res) =>{
+ const sendResetPasswordMail=async(name,email,token) => {    //token generated frm randomstring
+    try{
+
+        const transporter=nodemailer.createTransport({       //give ur host we will provide authenticatio
+            host:'smtp.gmail.com',
+            port:587,
+            secure:false,
+            reqireTLS:true,
+            auth:{
+                user:config.emailUser,
+                pass:config.emailPassword
+            }
+        });
+        
+        const mailOptions={
+            from:config.emailUser,
+            to:email,                                  //from sbpatil to user's email
+             subject:'For Reset Password',
+             html:'<p>Hi '+name+', please click here to <a href="http://127.0.0.1:3000/admin_forget-password?token='+token+'"> Reset </a> your Password.</p>'
+        }
+            transporter.sendMail(mailOptions,function(error,info){
+                if(error){
+                    console.log(error);
+                }
+                else{
+                    console.log("emailhas been sent:- ",info.response);
+                }
+
+            })
+            
+
+     }catch(error){
+        console.log(error.message);
+    }
+
+    }
+
+
+ 
+ 
+ 
+    const loadLogin= async(req,res) =>{
     try{
 
         res.render('admin_login.ejs');
@@ -90,11 +131,92 @@ const securedPassword= async(password) =>{
             }
             }
         
-        
+            const forgetLoad =async(req,res) => {
+
+                try{
+                    res.render('admin_forget.ejs');
+                
+                }catch(error){7
+                    console.log(error.message);
+                }
+            }
+          
+            const forgetVerify =async(req,res) => {
+
+                try{
+                    
+                    const email=req.body.email;
+                    const userData= await User.findOne({email:email});
+                    if(userData){
+                        
+                          if(userData.is_admin === 0){    //if its a user 
+                            res.render('admin_forget.ejs',{message: "Please Verify your Mail"})
+                          
+                          }
+                           else{
+                             const randomString=randomstring.generate();
+                             const updatedData=  await User.updateOne({email:email},{$set:{token:randomString}}); //update token in DB
+                             sendResetPasswordMail(userData.name,userData.email,randomString);
+                             res.render('admin_forget.ejs',{message: "Check ur mail to reset password"});
+                             
+                           }
+                         
+                    }
+                    else{
+                        res.render('admin_forget.ejs',{message: "User Mail is incorrect"});
+                    }
+                
+                }catch(error){
+                    console.log(error.message);
+                }
+            }
+            
+            
+            const forgetPasswordLoad =async(req,res) => {
+            
+                try{
+                    const token= req.query.token;
+                    const tokenData=await User.findOne({token:token});
+                    if(tokenData){
+                        res.render('admin_forget-password.ejs',{user_id:tokenData._id});
+                    }
+                    else{
+                        res.render('admin_404.ejs',{message:"Token is invalid"});
+                    }
+                
+                }catch(error){
+                    console.log(error.message);
+                }
+            }
+
+
+
+            const resetPassword =async(req,res) => {
+
+                try{
+                    const password= req.body.password;
+                    const user_id=req.body.user_id;
+                    
+                    const secure_password=await securedPassword(password);
+            
+                    const updatedData=await User.findByIdAndUpdate({_id:user_id},{ $set:{password:secure_password,token:''}});//after settting the password make token:"" empty so that no one opens this link again
+            
+                    res.redirect("/admin");
+            
+                
+                }catch(error){
+                    console.log(error.message);
+                }
+            }
+            
 
     module.exports={
         loadLogin,
         verifyLogin,
         loadDashboard,
-        adminLogout
+        adminLogout,
+        forgetLoad,
+        forgetVerify,
+        forgetPasswordLoad,
+        resetPassword
     }

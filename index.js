@@ -39,6 +39,13 @@ app.get('/admin',adminRoutes);
 app.post('/admin',adminRoutes);
 app.get('/admin_house',adminRoutes);
 app.get('/admin_logout',adminRoutes);
+app.get('/admin_forget',adminRoutes);
+app.post('/admin_forget',adminRoutes);
+app.get('/admin_forget-password',adminRoutes);
+app.post('/admin_forget-password',adminRoutes);
+
+
+
 
 
 
