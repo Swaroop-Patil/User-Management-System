@@ -36,6 +36,10 @@ app.post('/edit',userRoutes);
 
 const adminRoutes=require('./routes/adminRoute');
 app.get('/admin',adminRoutes);
+app.post('/admin',adminRoutes);
+app.get('/admin_house',adminRoutes);
+app.get('/admin_logout',adminRoutes);
+
 
 
 app.listen(port, () => {

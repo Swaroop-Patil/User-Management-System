@@ -59,7 +59,7 @@ user_route.post('/forget',auth.isLogout,userController.forgetVerify);
 
 user_route.get('/forget-password',auth.isLogout,userController.forgetPasswordLoad);
 
-user_route.post('/forget-password',userController.forgetPasswordLoad);
+user_route.post('/forget-password',userController.resetPassword);
 
 user_route.get('/edit',auth.isLogin,userController.editLoad);
 

@@ -1,13 +1,14 @@
-const { response } = require("../routes/userRoute");
+const { response } = require("../routes/adminRoute");
 
 const isLogin= async(req,res,next) =>{                //if authorization is correct then move next
 
     try{
 
-        if(req.session.user_id){}
-
+        if(req.session.user_id){}                    
+       
         else{
-            response.redirect('/house');                //if no authorization goto home
+            response.redirect('/admin');     //if user_id is not  stored in session             
+                                                       //if no authorization goto home
         }
         next();
 
@@ -22,8 +23,8 @@ const isLogout= async(req,res,next) =>{                //if authorization is cor
 
     try{
 
-        if(req.session.user_id){
-            res.redirect('/house');
+        if(req.session.user_id){                        //if user _id is set then redirect to admin_
+            res.redirect('/admin_house');
         }
 
         next();

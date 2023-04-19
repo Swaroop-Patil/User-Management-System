@@ -5,7 +5,7 @@ const multer=require('multer');//to store files,images in server
 const path=require('path');
 const adminController= require('../controllers/adminController');
 const config=require('../config/config.js');
-const auth=require('../middleware/auth.js');
+const auth=require('../middleware/adminAuth.js');
 
 
 
@@ -25,10 +25,17 @@ admin_route.use(express.static('public'));
 
 
 
-admin_route.get('/admin',adminController.loadLogin);
+admin_route.get('/admin',auth.isLogout,adminController.loadLogin);
+admin_route.post('/admin',adminController.verifyLogin);
+admin_route.get('/admin_house',auth.isLogin,adminController.loadDashboard);
+admin_route.get('/admin_logout',auth.isLogin,adminController.adminLogout);
+
+
 admin_route.get('*',function(req,res){
 
     res.redirect('/admin');
 })
+
+
 
 module.exports= admin_route;
