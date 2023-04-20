@@ -1,3 +1,4 @@
+require('dotenv').config();
 const User=require('../models/user');
 const bcrypt=require('bcrypt');  //decrypt hashed passwords
 const nodemailer=require('nodemailer');
