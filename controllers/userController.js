@@ -63,8 +63,8 @@ const securedPassword= async(password) =>{
         try{
     
             const transporter=nodemailer.createTransport({       //give ur host we will provide authenticatio
-                host:'smtp.gmail.com',
-                port:587,
+                host:config.smtp,
+                port:config.port,
                 secure:false,
                 reqireTLS:true,
                 auth:{

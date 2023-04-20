@@ -44,7 +44,7 @@ const securedPassword= async(password) =>{
                     console.log(error);
                 }
                 else{
-                    console.log("emailhas been sent:- ",info.response);
+                    console.log("email has been sent:- ",info.response);
                 }
 
             })
