@@ -1,20 +1,32 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 //const bcrypt = require('bcrypt');
 //const User = require('./models/user');
+const configure= require('./config/config');
 
 const app = express();
-const port =  3000;
+const PORT =  process.env.PORT || 3000;
 
-
-mongoose.connect('mongodb+srv://swaroop:ninjah2r@cluster0.han8srw.mongodb.net/REGISTRATIONS_JN?retryWrites=true&w=majority', {
+mongoose.set('strictQuery',false); //to avoid warnings
+/*mongoose.connect('mongodb+srv://swaroop:ninjah2r@cluster0.han8srw.mongodb.net/REGISTRATIONS_JN?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
   console.log('Connected to database');
 }).catch(err => {
   console.error(err);
-});
+});*/
+
+const connectDB = async ()=> {
+  try {
+    const conn = await mongoose.connect(configure.MONGO_URI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch(error) {
+    console.log(error);
+    process.exit(1);
+    }
+}
 
 //for user routes
 
@@ -49,9 +61,10 @@ app.get('/admin_dashboard',adminRoutes);
 
 
 
-
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+connectDB().then(() => {
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+})
   });
   
   

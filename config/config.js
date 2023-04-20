@@ -1,10 +1,13 @@
 const sessionSecret= "ninjah2r";
 const emailUser="dtisswarooppatil@gmail.com";
 const emailPassword="dlsudqjjwyowgifb";
+const MONGO_URI='mongodb+srv://swaroop:ninjah2r@cluster0.han8srw.mongodb.net/REGISTRATIONS_JN?retryWrites=true&w=majority';
 
 
 module.exports ={
     sessionSecret,
     emailUser,
-    emailPassword
+    emailPassword,
+    MONGO_URI
+    
 }
