@@ -4,7 +4,7 @@ const bodyParser=require('body-parser');
 const session=require("express-session");
 const multer=require('multer');//to store files,images in server
 const path=require('path');
-const userController= require('../controllers/userController');
+const userController= require('../controllers/userController.js');
 const config=require('../config/config.js');
 const auth=require('../middleware/auth.js');
 
