@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express=require('express');
 const bodyParser=require('body-parser');//to encode the incoming data
 const session=require("express-session"); //for user login logout
